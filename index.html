@@ -336,13 +336,20 @@ function _d(e){try{return CryptoJS.AES.decrypt(e,'OBS3SS10N_mlplsk20').toString(
                                 <div class="world-tags-container" id="worldTagsContainer">
                                     <!-- 标签将由JavaScript生成 -->
                                 </div>
+                                
+                                <!-- 自定义题材输入框 -->
+                                <div class="character-field" style="margin-top: 20px;">
+                                    <label class="character-field-label">自定义喜欢的题材</label>
+                                    <input type="text" class="character-input-compact" id="customPreference" placeholder="填写此项可增加生成你喜欢题材的概率" oninput="WorldPreference.saveCustom()">
+                                    </div>
+                                </div>
+                                <button class="btn-start-journey" id="btnStartJourney" onclick="Character.startJourney()">确认</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             
-            <button class="btn-start-journey" id="btnStartJourney" onclick="Character.startJourney()">确认</button>
         </div>
     </div>
 
@@ -412,35 +419,6 @@ function _d(e){try{return CryptoJS.AES.decrypt(e,'OBS3SS10N_mlplsk20').toString(
                         <div id="character-form-slot"></div>
                     </div>
                     
-                    <!-- 支持与反馈 -->
-                    <div class="settings-section">
-                        <h3 class="settings-section-title">📮 反馈建议</h3>
-                        
-                        <div class="feedback-container">
-                            <textarea 
-                                id="feedbackContent" 
-                                class="feedback-textarea"
-                                placeholder="告诉我你的想法、建议、遇到的问题...&#10;&#10;我会认真看每一条反馈！"
-                            ></textarea>
-                            
-                            <input 
-                                type="text" 
-                                id="feedbackContact" 
-                                class="feedback-contact"
-                                placeholder="留下联系方式（可选）"
-                            >
-                            
-                            <button class="feedback-submit-btn" onclick="Support.sendFeedback()">
-                                发送反馈
-                            </button>
-                            
-                            <p class="feedback-hint">
-                                反馈会直接发送到我这里，我会尽快回复~
-                            </p>
-                        </div>
-                    </div>
-
-                    
                     <!-- API配置（从apiConfigSection移动过来） -->
                     <div class="settings-section">
                         <h3 class="settings-section-title">API配置</h3>
@@ -467,16 +445,13 @@ function _d(e){try{return CryptoJS.AES.decrypt(e,'OBS3SS10N_mlplsk20').toString(
                                     <label class="memory-interval-label">
                                         自动总结间隔（轮）
                                     </label>
-                                    <input type="number" id="cfg-memory-interval" min="1" max="100" value="10" oninput="MemorySettings.save()" class="memory-interval-input">
+                                    <input type="number" id="cfg-memory-interval" min="1" max="100" value="30" oninput="MemorySettings.save()" class="memory-interval-input">
                                 </div>
                             </div>
-                            <p class="memory-prompt-hint">
-                                每N轮对话后自动生成长期总结
-                            </p>
                         </div>                      
                         
                         <!-- 短期记忆总结 -->
-                        <div class="memory-prompt-section" style="display:none;">
+                        <div class="memory-prompt-section">
                             <div class="memory-prompt-header">
                                 <label class="memory-prompt-label">短期记忆总结提示词</label>
                                 <div class="memory-prompt-buttons">
@@ -489,13 +464,10 @@ function _d(e){try{return CryptoJS.AES.decrypt(e,'OBS3SS10N_mlplsk20').toString(
                                 </div>
                             </div>
                             <textarea id="cfg-memory-short-prompt" readonly onclick="MemorySettings.expandPrompt('short')" class="qyjb"></textarea>
-                            <p class="memory-prompt-hint">
-                                每轮对话后自动生成总结，提取关键信息
-                            </p>
                         </div>
                         
                         <!-- 长期记忆总结 -->
-                        <div class="memory-prompt-section" style="display: none;">
+                        <div class="memory-prompt-section">
                             <div class="memory-prompt-header">
                                 <label class="memory-prompt-label">长期记忆总结提示词</label>
                                 <div class="memory-prompt-buttons">
@@ -508,16 +480,39 @@ function _d(e){try{return CryptoJS.AES.decrypt(e,'OBS3SS10N_mlplsk20').toString(
                                 </div>
                             </div>
                             <textarea id="cfg-memory-long-prompt" readonly onclick="MemorySettings.expandPrompt('long')" class="qyjb"></textarea>
-                            <p class="memory-prompt-hint">
-                                定期汇总多轮对话，形成完整记忆
-                            </p>
                         </div>
                         
-                     </div>
+                    </div>
+                    
+                    <!-- 支持与反馈 -->
+                    <div class="settings-section">
+                        <h3 class="settings-section-title">📮 反馈建议</h3>
+                        
+                        <div class="feedback-container">
+                            <textarea 
+                                id="feedbackContent" 
+                                class="feedback-textarea"
+                                placeholder="告诉我你的想法、建议、遇到的问题...&#10;&#10;我会认真看每一条反馈！"
+                            ></textarea>
+                            
+                            <input 
+                                type="text" 
+                                id="feedbackContact" 
+                                class="feedback-contact"
+                                placeholder="留你的邮箱（可选）"
+                            >
+                            
+                            <button class="feedback-submit-btn" onclick="Support.sendFeedback()">
+                                发送反馈
+                            </button>
+                            
+                        </div>
+                    </div>
 
                     <!-- 数据管理 -->
                     <div class="settings-section">
                         <h3 class="settings-section-title">数据管理</h3>
+                        <p class="data-manage-hint">导出包含角色、世界、对话、记忆、存档等所有数据</p>
                         <div class="data-manage-buttons">
                             <button class="data-manage-btn" onclick="DataManager.exportCharacter()">
                                 导出角色
@@ -526,11 +521,10 @@ function _d(e){try{return CryptoJS.AES.decrypt(e,'OBS3SS10N_mlplsk20').toString(
                                 导入角色
                             </button>
                         </div>
-                        <p class="data-manage-hint">导出包含角色、世界、对话、记忆、存档等所有数据</p>
                     </div>
 
-                    <!-- 关于 -->
-                    <div class="settings-section">
+                    <!-- 关于 - 暂时隐藏 -->
+                    <!-- <div class="settings-section">
                         <h3 class="settings-section-title">关于</h3>
                         
                         <div class="about-container">
@@ -539,30 +533,30 @@ function _d(e){try{return CryptoJS.AES.decrypt(e,'OBS3SS10N_mlplsk20').toString(
                             </div>
                             
                             <div class="about-info">
-                                <div class="about-item">
+                                 <div class="about-item">
                                     <span class="about-label">版本</span>
                                     <span class="about-value">v1.0.0</span>
-                                </div>
-                                <div class="about-item">
+                                </div> -->
+                                <!-- <div class="about-item">
                                     <span class="about-label">开发者</span>
                                     <span class="about-value">C.0</span>
                                 </div>
                                 <div class="about-item">
                                     <span class="about-label">小红书</span>
                                     <span class="about-value">@C.0</span>
-                                </div>
+                                </div> -->
                             </div>
                                                         
-                            <div class="about-actions">
+                            <!-- <div class="about-actions">
                                 <button class="about-btn" onclick="About.showTerms()">
                                     用户协议
                                 </button>
                                 <button class="about-btn" onclick="About.showPrivacy()">
                                     隐私说明
                                 </button>
-                            </div>
+                            </div> 
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -619,8 +613,8 @@ function _d(e){try{return CryptoJS.AES.decrypt(e,'OBS3SS10N_mlplsk20').toString(
         </div>
     </div>
 
-<!-- 用户协议弹窗 -->
-        <div id="termsModal" class="terms-modal">
+<!-- 用户协议弹窗 - 暂时隐藏 -->
+    <!-- <div id="termsModal" class="terms-modal">
             <div class="terms-overlay"></div>
             <div class="terms-content">
                 <div class="terms-header">
@@ -698,10 +692,10 @@ function _d(e){try{return CryptoJS.AES.decrypt(e,'OBS3SS10N_mlplsk20').toString(
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
 
-        <!-- 隐私说明弹窗 -->
-        <div id="privacyModal" class="terms-modal">
+        <!-- 隐私说明弹窗 - 暂时隐藏 -->
+        <!-- <div id="privacyModal" class="terms-modal">
             <div class="terms-overlay" onclick="About.closePrivacy()"></div>
             <div class="terms-content">
                 <div class="terms-header">
@@ -761,15 +755,15 @@ function _d(e){try{return CryptoJS.AES.decrypt(e,'OBS3SS10N_mlplsk20').toString(
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+        </div> 
+    </div>-->
 
 
     <script src="script.js"></script>
 <script>
-const _sp='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';
+const _sp='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';
 document.getElementById('cfg-memory-short-prompt').value=_d(_sp);</script>
-<script>const _lp='U2FsdGVkX1/h//8VS/J1lf/7kw19JJ7U1OCc3zqPsoCu35WR+lbO5FB67ccOw1hrLtOdkY4Hiy4nwIQB+5rT6r+BB15EUKjzXrC+8AJlMgS2YnonRh1A9Q0ePFjG8LlRXFun5a4Xr2Al15feK/ZCQ+ZWJe1QqBRGCm5HmTVjY4EcX04747NfMhNjr5DxHoezS3yej44Nfs6wCtIczp1ufTtNc/iLuBqufFPtPStzjyqiBabIDgkZ+5/YpH15iuzJekK5yu/hhwU2L828RNugPH06lRZOHMXYYTbDGXw3pFW9sMRQfCWlzgJsFuJQ/1kytcg/wYvs6KfdybgGbG3wCISLjQnDOGlHYxtK2iuCPhTMoWsut3K47YYMdKMA4F/0NCyWrbRg6xEoqjL/EEhNhJjsM16TiiXPyZlF6FeqWn7E5fN241MmIERG02HcOKiPFR2jI3FmPWWkl4WeYtbVsOhC32PmFJQ9G58szjRxIjPseRGQy+Ew05AhtqGViaGwAlTNc2wCl7j3zZfl7BJsOJqEZNKf3tZDOlk5fJYkH5haw9D8e4M3xLahQhCu0RZ9A1v1v2l6uUP2FwJrLKhRLGIhVOCRD9hE3OEkh4gA4VBrePa8/oJ3xx6mdmVGiKSy2SJ//JjEMVNbQ3lQI+bv4btDIttBwicNQyGXK3RnVvjz/kxUZ+r2shZSNMnGSqC8iK8GTY7l0r81Zs+qUvJkyz4IQ/4MM+ojPk//BydU7Ke645FhTE4sfXQZ77bFmxAItN0+Z8yD2NQwDFDmgqK8DUL3IaCWzPx4Q3UvCUfxeAMKzdaUUzWdYqC0WgiwCHzgcY0uOTMvxPt92TC4pH+4pIqUTFEIbo8jwmzFoWpctOh159F/wT+ulujjKHyEORtsfiXGMTNg2GUTuJiC1rySUlr2BWBnUMn1Mv/uckmE7aJ87o5KimmYwLmL399DbEHF22kDegbT3flanbiUJrUcCLzFh7L07bPPriqEHyubNZI8TTZi8qGnZ0CL1n32Gw5SzsAxG4HqVsyAk1YzybEn/z7dLkWUC8cwUWS4XpBXxvNLM55HUS4LYznCXvF0L2daYtLQkkeRNEJQ46kh51y+37QdnQEij88ut7THGLV38rsZOYKBHCJa5qK5PKOkXydmDVw3ilm/41YHALQ0gWUI2M0X6LRoeQT6bBRJ4jW/EQzCT6+5y+atyIR0IKjRkcEH4HRei/cYl8bFig5J+KVCH+ij+c6CUe0eK0DWAtn6ebaBhhoV4/4j12hlykDF3t/FTKNlkYQGKlbODCqbKDcZlA9dUtq8SfPDaG1pPnX89kP8ULwaGJyczEMNWX/mONDRg05zWWqfm9b8/ZStJbH8SJxDAMcEt3sFqyfihxgVzWikoByn3iiVTbCHRu9ZbFMGLvVv4lgEMJ+ozgpjxFtA9oB0r1gmVc+3R0njNDPUI8XYFK81CLgaZBH92JXmvwvM6sy6ZHKVSZZ472CATVpLA/2Q9tforXtIK8FvHB36BUV4afXyxABjUytalCx2JU5n';
+<script>const _lp='U2FsdGVkX1/2Iffsn/BA9N3yv5GprO3PH9inJKDhAI7BOaTT8vHcX+YZdJn5/NmQU9fD0VL9/bCGAIPVaTTUySagNlZFd39yXXwFs6/M2/9q0JqtTpDysGBh1ye0AMiJjMy/4BXdUtVHHywy4xw13+swuNE+GSR5ZCVwe7Ab3ODwfVXglMmyt/RnFInEt7bE5tYB2vs0K32cd8OfplVm/SvzNHihl+IVYghJn5sOiRVouIc1cnpxVL/a+t5h29Gp12MWg72a1QIezDtjUNNZmc9iUJzlfLa4xPLXB/w3J3dYHQCn8G6SJ5gdwxsyygHVlbJOeQ4BpLMv/Bf8MutWiKKCbORKl89THYGj1DtgO0eK3f691nBxsIGOzqPEU0wP+DBj1HEmbFOlWyAiD6CJbeECUypPdf16tTslibP56bLzJMEM45hnsPA8o+KOp+Nvj4xt6u17q1RGeQIQga1oH8epxqUB1MMXXwLk5lP0HL7HiR6Z0rpmhEsOiAdx3W9E1e2Dna+9mJ0p8VC81jtr/lph43KWykJBlw8agQwWCMd9eFb0y7OqL2gAxsVyJFNGQSBU5azGvfk0CVLT5uqNG3nX7onisTX8QubzvtYhsWFMQJM/qoVgKnXWY0rj5Fkp14d3VZ6AkJUYpaJQkhkzgDRSbjZAvh8Tcwlghiav03jV83glU8xpmLksBWbifk62OrqArwXod4ysgzG7WGHZrHQoL5/M8UVRnhZPoBVLIdWorsjzc4OqUL9v4CVkFPLT1VBxA91Ir9lnCphWYLWpwLt6omoSRgC4YAlmZpOpxWB3/jHaD5UXg4gQqzuNvK/lrNbocA6gFKiHCaKZCOw8Y8yWTg6YAY0ggBmEnr4Q+HQPJcRiLExYZ0LuNNx2DKAN6iBsQpUH7qJbz0C4rriHKW8QyUowHF5fw2MnY/F2ij/5yMhwVk8avOlbAaQnrHRU00G4fB4fRscLRAaFNjzwTTkW5eaLbw7JapdSgp3zfPewtlfJmG9hCgRelqSQ/8hvd3NOYdpfBT9KHBq8lL8TGf5b1Av1WuGx4J55x2yKpoQHCYTVcpJXZuuGHXVgD6JOrUNyVF2yfFxBW6Iiud57JEMULcNik3M4yRoQ2xopU76faYZJuH00MHmzTceAqtaOpbO+HWO3RuPilyO6OGzfWKNEb7dS2B0RuSqvs77RJt4hCT9EG5PfOGzznUS8o/tX3XJh7OtaC70Cr+qCul8keGqoRZaV8b2Hd3EMaLc0h5t2vNhPXlPZrMyXJRQvDpu7XtyRou5qIHkMWnuZEXlWsiS9VKukr0fkJgrgplQLz0JsZv5CMT4oXOA6W/AUfcc7M403B9qeJHoc06vYwPY9w/+8duFi0KsIX8axCtqz45GEZQkRFLMkkgcvkv6z5C51QCPoOCueOxQDrr3UDSgADEVvUbmqRi2UM0SlI5sqR056+5t29D2mHsRNZPnEC4/oFdunXvyycH4CNBZ7YBibQA==';
 document.getElementById('cfg-memory-long-prompt').value=_d(_lp);</script>
 </body>
 </html>
