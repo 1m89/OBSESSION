@@ -8,6 +8,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600;900&family=Cinzel:wght@400;600;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+
 <script>
 function _d(e){try{return CryptoJS.AES.decrypt(e,'OBS3SS10N_mlplsk20').toString(CryptoJS.enc.Utf8)}catch(t){return''}}
 </script>
@@ -463,7 +465,7 @@ function _d(e){try{return CryptoJS.AES.decrypt(e,'OBS3SS10N_mlplsk20').toString(
                                     </button>
                                 </div>
                             </div>
-                            <textarea id="cfg-memory-short-prompt" readonly onclick="MemorySettings.expandPrompt('short')" class="qyjb"></textarea>
+                            <textarea id="cfg-memory-short-prompt" readonly onclick="MemorySettings.expandPrompt('short')" class="memory-prompt-textarea"></textarea>
                         </div>
                         
                         <!-- 长期记忆总结 -->
@@ -479,7 +481,7 @@ function _d(e){try{return CryptoJS.AES.decrypt(e,'OBS3SS10N_mlplsk20').toString(
                                     </button>
                                 </div>
                             </div>
-                            <textarea id="cfg-memory-long-prompt" readonly onclick="MemorySettings.expandPrompt('long')" class="qyjb"></textarea>
+                            <textarea id="cfg-memory-long-prompt" readonly onclick="MemorySettings.expandPrompt('long')" class="memory-prompt-textarea"></textarea>
                         </div>
                         
                     </div>
@@ -523,40 +525,6 @@ function _d(e){try{return CryptoJS.AES.decrypt(e,'OBS3SS10N_mlplsk20').toString(
                         </div>
                     </div>
 
-                    <!-- 关于 - 暂时隐藏 -->
-                    <!-- <div class="settings-section">
-                        <h3 class="settings-section-title">关于</h3>
-                        
-                        <div class="about-container">
-                            <div class="about-logo">
-                                <h2 class="about-title">OBSESSION</h2>
-                            </div>
-                            
-                            <div class="about-info">
-                                 <div class="about-item">
-                                    <span class="about-label">版本</span>
-                                    <span class="about-value">v1.0.0</span>
-                                </div> -->
-                                <!-- <div class="about-item">
-                                    <span class="about-label">开发者</span>
-                                    <span class="about-value">C.0</span>
-                                </div>
-                                <div class="about-item">
-                                    <span class="about-label">小红书</span>
-                                    <span class="about-value">@C.0</span>
-                                </div> -->
-                            </div>
-                                                        
-                            <!-- <div class="about-actions">
-                                <button class="about-btn" onclick="About.showTerms()">
-                                    用户协议
-                                </button>
-                                <button class="about-btn" onclick="About.showPrivacy()">
-                                    隐私说明
-                                </button>
-                            </div> 
-                        </div>
-                    </div> -->
                 </div>
             </div>
         </div>
@@ -613,157 +581,14 @@ function _d(e){try{return CryptoJS.AES.decrypt(e,'OBS3SS10N_mlplsk20').toString(
         </div>
     </div>
 
-<!-- 用户协议弹窗 - 暂时隐藏 -->
-    <!-- <div id="termsModal" class="terms-modal">
-            <div class="terms-overlay"></div>
-            <div class="terms-content">
-                <div class="terms-header">
-                    <h2 class="terms-title">欢迎使用 OBSESSION</h2>
-                    <button class="side-panel-close" onclick="About.closeTerms()" id="termsCloseBtn" style="display: none;">✕</button>
-                </div>
-                <div class="terms-body" id="termsBody">
-                    <p class="intro-text">
-                        在使用前，请仔细阅读以下使用协议和隐私说明。<br>
-                        <strong style="color: var(--blood-red);">滚动阅读到底部即可关闭，继续使用即表示您同意本协议。</strong>
-                    </p>
-
-                    <div class="terms-section">
-                        <h3>1. 产品说明</h3>
-                        <p>OBSESSION 是一款基于快穿世界观的AI互动叙事工具，供个人娱乐使用。</p>
-                        <ul>
-                            <li>本工具不提供AI服务，需用户自行配置API密钥</li>
-                            <li>所有数据存储在用户本地浏览器中</li>
-                            <li>开发者不收集、不存储、不上传任何用户数据</li>
-                        </ul>
-                    </div>
-
-                    <div class="terms-section">
-                        <h3>2. 用户责任</h3>
-                        <p>使用本工具即表示您同意：</p>
-                        <ul>
-                            <li>您对使用本工具生成的所有内容承担全部责任</li>
-                            <li>您不会将本工具用于任何违法、侵权或不当用途</li>
-                            <li>您理解AI生成的内容可能存在偏差、错误或不适宜的情况</li>
-                            <li>您使用的API密钥及产生的费用由您自行负责</li>
-                        </ul>
-                    </div>
-
-                    <div class="terms-section">
-                        <h3>3. 隐私保护</h3>
-                        <p>OBSESSION 高度重视您的隐私：</p>
-                        <ul class="check-list">
-                            <li>✓ 所有角色、对话、记忆数据存储在您的浏览器本地</li>
-                            <li>✓ 不收集任何个人信息或使用行为</li>
-                            <li>✓ 不使用第三方数据分析工具</li>
-                            <li>✓ 您的API密钥直接从浏览器发送到AI服务商</li>
-                        </ul>
-                        <p class="warning">⚠️ 请注意：清除浏览器数据会导致本地数据丢失，请及时导出备份</p>
-                    </div>
-
-                    <div class="terms-section">
-                        <h3>4. 免责声明</h3>
-                        <ul>
-                            <li>本工具仍在持续开发中，可能存在功能不完善或偶发错误</li>
-                            <li>开发者会尽力优化，但不对使用过程中的任何问题承担责任</li>
-                            <li>开发者不对因使用本工具导致的任何损失承担责任</li>
-                            <li>开发者保留随时修改、暂停或终止服务的权利</li>
-                        </ul>
-                    </div>
-
-                    <div class="terms-section">
-                        <h3>5. 知识产权</h3>
-                        <ul>
-                            <li>本产品的代码、UI设计、世界观设定、提示词框架等归开发者所有</li>
-                            <li>允许个人学习研究，禁止商业使用和二次分发</li>
-                            <li>禁止删除版权标识后传播或用于其他项目</li>
-                            <li>用户生成的内容版权归用户本人</li>
-                        </ul>
-                    </div>
-
-                    <div class="terms-section">
-                        <h3>6. 其他</h3>
-                        <p>如有疑问或建议，欢迎通过产品内反馈功能联系开发者。</p>
-                    </div>
-
-                    <div class="terms-footer">
-                        <p>开发者：C.0</p>
-                        <p>小红书：@C.0</p>
-                        <p>最后更新：2026年2月</p>
-                    </div>
-                </div>
-            </div>
-        </div> -->
-
-        <!-- 隐私说明弹窗 - 暂时隐藏 -->
-        <!-- <div id="privacyModal" class="terms-modal">
-            <div class="terms-overlay" onclick="About.closePrivacy()"></div>
-            <div class="terms-content">
-                <div class="terms-header">
-                    <h2 class="terms-title">隐私说明</h2>
-                    <button class="side-panel-close" onclick="About.closePrivacy()">✕</button>
-                </div>
-                <div class="terms-body">
-                    <p class="intro-text">OBSESSION 采用完全本地化的设计理念，最大程度保护您的隐私。</p>
-
-                    <div class="terms-section">
-                        <h3>我们做的</h3>
-                        <ul class="check-list">
-                            <li>✓ <strong>本地存储</strong> - 所有数据存储在您的浏览器本地，不经过任何服务器</li>
-                            <li>✓ <strong>零追踪</strong> - 不使用任何数据分析、用户追踪或统计工具</li>
-                            <li>✓ <strong>零收集</strong> - 不收集您的个人信息、使用习惯或生成内容</li>
-                            <li>✓ <strong>开放透明</strong> - 代码逻辑公开透明，可随时审查</li>
-                        </ul>
-                    </div>
-
-                    <div class="terms-section">
-                        <h3>我们不做的</h3>
-                        <ul class="cross-list">
-                            <li>✗ 不在服务器存储任何用户数据</li>
-                            <li>✗ 不使用Cookie进行用户追踪</li>
-                            <li>✗ 不与任何第三方共享您的信息</li>
-                            <li>✗ 不访问或上传您的对话内容</li>
-                        </ul>
-                    </div>
-
-                    <div class="terms-section">
-                        <h3>数据流向</h3>
-                        <ol>
-                            <li><strong>API密钥</strong> - 您配置的密钥仅存储在本地浏览器，发送API请求时直接从您的浏览器发往对应的AI服务商</li>
-                            <li><strong>对话内容</strong> - 您与AI的对话内容仅在您的浏览器和AI服务商之间传输，本工具不作任何中转或存储</li>
-                            <li><strong>角色数据</strong> - 所有角色设定、记忆、存档等数据均存储在浏览器的localStorage中</li>
-                        </ol>
-                    </div>
-
-                    <div class="terms-section">
-                        <h3>您的权利</h3>
-                        <ul>
-                            <li>您可以随时通过浏览器设置清除所有本地数据</li>
-                            <li>您可以使用导出功能备份数据到本地文件</li>
-                            <li>您对自己生成的所有内容拥有完整控制权</li>
-                        </ul>
-                    </div>
-
-                    <div class="terms-section">
-                        <h3>重要提醒</h3>
-                        <p class="warning">⚠️ 清除浏览器数据、缓存或使用隐私模式会导致本地数据丢失</p>
-                        <p class="warning">⚠️ 定期使用"导出角色"功能备份重要数据</p>
-                        <p class="warning">⚠️ 切换浏览器或设备需要手动导入数据</p>
-                    </div>
-
-                    <div class="terms-footer">
-                        <p><strong>您的数据，完全属于您。</strong></p>
-                    </div>
-                </div>
-            </div>
-        </div> 
-    </div>-->
+    </div>
 
 
     <script src="script.js"></script>
 <script>
-const _sp='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';
+const _sp='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';
 document.getElementById('cfg-memory-short-prompt').value=_d(_sp);</script>
-<script>const _lp='U2FsdGVkX1/2Iffsn/BA9N3yv5GprO3PH9inJKDhAI7BOaTT8vHcX+YZdJn5/NmQU9fD0VL9/bCGAIPVaTTUySagNlZFd39yXXwFs6/M2/9q0JqtTpDysGBh1ye0AMiJjMy/4BXdUtVHHywy4xw13+swuNE+GSR5ZCVwe7Ab3ODwfVXglMmyt/RnFInEt7bE5tYB2vs0K32cd8OfplVm/SvzNHihl+IVYghJn5sOiRVouIc1cnpxVL/a+t5h29Gp12MWg72a1QIezDtjUNNZmc9iUJzlfLa4xPLXB/w3J3dYHQCn8G6SJ5gdwxsyygHVlbJOeQ4BpLMv/Bf8MutWiKKCbORKl89THYGj1DtgO0eK3f691nBxsIGOzqPEU0wP+DBj1HEmbFOlWyAiD6CJbeECUypPdf16tTslibP56bLzJMEM45hnsPA8o+KOp+Nvj4xt6u17q1RGeQIQga1oH8epxqUB1MMXXwLk5lP0HL7HiR6Z0rpmhEsOiAdx3W9E1e2Dna+9mJ0p8VC81jtr/lph43KWykJBlw8agQwWCMd9eFb0y7OqL2gAxsVyJFNGQSBU5azGvfk0CVLT5uqNG3nX7onisTX8QubzvtYhsWFMQJM/qoVgKnXWY0rj5Fkp14d3VZ6AkJUYpaJQkhkzgDRSbjZAvh8Tcwlghiav03jV83glU8xpmLksBWbifk62OrqArwXod4ysgzG7WGHZrHQoL5/M8UVRnhZPoBVLIdWorsjzc4OqUL9v4CVkFPLT1VBxA91Ir9lnCphWYLWpwLt6omoSRgC4YAlmZpOpxWB3/jHaD5UXg4gQqzuNvK/lrNbocA6gFKiHCaKZCOw8Y8yWTg6YAY0ggBmEnr4Q+HQPJcRiLExYZ0LuNNx2DKAN6iBsQpUH7qJbz0C4rriHKW8QyUowHF5fw2MnY/F2ij/5yMhwVk8avOlbAaQnrHRU00G4fB4fRscLRAaFNjzwTTkW5eaLbw7JapdSgp3zfPewtlfJmG9hCgRelqSQ/8hvd3NOYdpfBT9KHBq8lL8TGf5b1Av1WuGx4J55x2yKpoQHCYTVcpJXZuuGHXVgD6JOrUNyVF2yfFxBW6Iiud57JEMULcNik3M4yRoQ2xopU76faYZJuH00MHmzTceAqtaOpbO+HWO3RuPilyO6OGzfWKNEb7dS2B0RuSqvs77RJt4hCT9EG5PfOGzznUS8o/tX3XJh7OtaC70Cr+qCul8keGqoRZaV8b2Hd3EMaLc0h5t2vNhPXlPZrMyXJRQvDpu7XtyRou5qIHkMWnuZEXlWsiS9VKukr0fkJgrgplQLz0JsZv5CMT4oXOA6W/AUfcc7M403B9qeJHoc06vYwPY9w/+8duFi0KsIX8axCtqz45GEZQkRFLMkkgcvkv6z5C51QCPoOCueOxQDrr3UDSgADEVvUbmqRi2UM0SlI5sqR056+5t29D2mHsRNZPnEC4/oFdunXvyycH4CNBZ7YBibQA==';
+<script>const _lp='U2FsdGVkX1+pa0x5Zf0TqLLq3pSCnKTl0kVpfUbnTU1QXuD+oAhdY+Jlns1BGcltO7gyV1tsxZypg8nWXSa0XMSC91ujMbLrsxdQ3MheyBGzT6hWKs8FTpdDeZ4HXCmI9+k3qCLmXz1hbzicSRgdvtXjNyL3r9CC1tbLXAK5amkro/WcjAeYw1EKecZEHdS+jUoz9jTqk0hm48BBrrTHv+JExx4jb+YuiawsqpK/Zj8Nsy0yA1DqE/Szja+pyqJ6b3kMJTbWfYDPIPGLGCeNuDHWdqD89JGoIw2joUV+CvppHJQtctkibB4sOs8ICxRXVtvfH2Gt0a+l9oZcN/w2/5Y5wOT9iokv9gU5CqdUFmvqS0jmZOaj+FxL2tr67DbpmTyweQZPClx6YtDSmfD9qyLNZXnKvXKol8JEAGf9jsbI3i52riw+XPklrdFSzRbPsMr+GNCHsjHOoF0CKI7qtMCi/+9czzkYczFSPeiSFkCWLqOPDOVvAiUgFgrSCY+MmT+TV7Icc3SDH1U4wXaWw/K2yTHcTAYWXpPCLcAEmdJptJDIDdYwP6ex4+xz3BVTtjuMnbPAgMvNmCyLFd695vFwWtqYWExC3BJyEZwob+40Vnb6RcoGLs06lm6sDHqeTdSRFr6dxD/AmcWpYazZSNNJ/9w2R15+iuwnSZ9+8ndCnP3Z1Xurun7qI3fJlsY0G6cvRbPvupa6RDbRp7UU9AD4sjb0oDr46PwODtV/CVWBN/hAa9LhEkk2xjuYEIXnfT3G9STEp+rx64M+4t9bjkLh6aALokpgpo/MU7ar+wVFZV0yE3090ClYLKO2+//IHTwDzAb+LNtbuGBm5FPhBoerb58kbk23sbRYZh0L0sywSa603GtrI1BXBemocBcMEjBrPCs5xvPGk/nAt9t+N2vlYz8yhi4pwxIL9eZnRKhOZxkR7YLsaojgk8qfjNmsmjiNXbZDYE56oMo0kjKSVyrQ9RsnLDrJiLJVmyi2eUynPaTytWwy4JChJHMP8Jc+gdpX/7UhwocKh3hldegxrBQ649n6hJjGiaBCgkmiKypxC/FW1zPR2ShlfZS0HJt+khdBAso96tcJIJOMeqIudNaAy71ymLuuCSLvsvHZ7luhVK7ziRdf1O4v1nSJ+pnargdYFqMDiyWaLZTqgi/w42slM5aeCaDyvItNFq/ICQlYj/fEsQH4dFRvtXA02daKk6N+h2enf/pxe9wIHvWNZrzqi9FB9xd8dZ13Tk+GuKuaZIWnFBmtnPhAEiJSFponIp5slJzMdrRLmHzC+LdItjtj5jnGFyITGSXfUdnszDw1GLKPv6fNFfOdaAODIYx4HwJNY/iCrzW4nCPtUY1ZS3bGh0Hckwq1EzbRpFGYRkvNa0ZZmTYkt9S5xnpaxHUkwpFy6S5QXeUPvA/EWhmPy/gX2WrTXYXwOHmmoHILsUhbK8Q5maIQlWCpcGk8XnEHuhA4gaIdnXRGEcGvaemrPA==';
 document.getElementById('cfg-memory-long-prompt').value=_d(_lp);</script>
 </body>
 </html>
